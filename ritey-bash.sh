@@ -59,4 +59,34 @@ allLogFiles () {
 allLogFiles
 
 EOF
+cat <<EOF > /srv/www/ritey/ritey.service
+[Unit]
+Description=Test Daemon Service
+
+[Service]
+User=root
+Type=simple
+TimeoutSec=0
+PIDFile=/run/ritey.pid
+ExecStart=/bin/bash /srv/www/ritey/ritey2.sh > /dev/null 2>/dev/null
+ExecStop=/bin/kill -HUP \$MAINPID
+ExecReload=/bin/kill -HUP \$MAINPID
+KillMode=process
+
+Restart=on-failure
+RestartSec=42s
+
+StandardOutput=null
+StandardError=null
+[Install]
+WantedBy=default.target
+EOF
+
+sudo rm /etc/systemd/system/ritey.service
+sudo ln -s /srv/www/ritey/ritey.service /etc/systemd/system/ritey.service
+#sudo systemctl start ritey
+sudo systemctl daemon-reload
+sudo systemctl start ritey
+
+
 }
