@@ -72,7 +72,7 @@ function postFile(\$uri, \$params = [])
     \$BODY.= chunk_split(base64_encode(file_get_contents(\$file_url))) . \$eol; // we write the Base64 File Content and the \$eol to finish the data,
     \$BODY.= '--'.\$BOUNDARY .'--' . \$eol. \$eol; // we close the param and the post width "--" and 2 \$eol at the end of our boundary header.
 
-    \$bearer = 'Authorization: Bearer lw0fFdrYzrNuJxBu4arUU7TJoP6p3CYv9kQW6MW9';
+    \$bearer = 'Authorization: Bearer \$paras['token']';
     \$ch = curl_init(); //init curl
     curl_setopt(\$ch, CURLOPT_HTTPHEADER, array(
                         \$bearer,
