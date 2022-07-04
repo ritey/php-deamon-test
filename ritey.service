@@ -1,0 +1,20 @@
+[Unit]
+Description=Test Daemon Service
+
+[Service]
+User=root
+Type=simple
+TimeoutSec=0
+PIDFile=/var/run/ritey.pid
+ExecStart=/usr/bin/php -f /srv/www/ritey/ritey.php > /dev/null 2>/dev/null
+ExecStop=/bin/kill -HUP $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+
+Restart=on-failure
+RestartSec=42s
+
+StandardOutput=null
+StandardError=null
+[Install]
+WantedBy=default.target
