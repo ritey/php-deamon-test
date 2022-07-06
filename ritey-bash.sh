@@ -14,11 +14,11 @@ if [ -z "$APIKEY" ]; then
     exit 0;
 fi
 
-rm -R /ritey
+sudo rm -R /ritey
 
 if [ ! -d "/ritey" ]; then
-mkdir "/ritey"
-chmod 775 "/ritey"
+sudo mkdir "/ritey"
+sudo chmod 775 "/ritey"
 fi
 
 cat <<EOF > /ritey/ritey2.sh
