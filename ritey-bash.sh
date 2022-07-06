@@ -16,8 +16,14 @@ fi
 
 sudo rm -R /srv/www/ritey
 
+if [ ! -d "/srv/www" ]; then
+sudo mkdir "/srv/www"
+sudo chmod +x "/srv/www"
+fi
+
 if [ ! -d "/srv/www/ritey" ]; then
-mkdir "/srv/www/ritey"
+sudo mkdir "/srv/www/ritey"
+sudo chmod +x "/srv/www/ritey"
 fi
 
 cat <<EOF > /srv/www/ritey/ritey2.sh
