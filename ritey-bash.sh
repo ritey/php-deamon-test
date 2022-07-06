@@ -14,8 +14,6 @@ if [ -z "$APIKEY" ]; then
     exit 0;
 fi
 
-sudo rm -R /srv/www/ritey
-
 cat <<EOF > /srv/www/ritey/ritey2.sh
 #!/bin/bash
 
