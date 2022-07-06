@@ -14,14 +14,9 @@ if [ -z "$APIKEY" ]; then
     exit 0;
 fi
 
-sudo rm -R /ritey
+sudo rm -R /srv/www/ritey
 
-if [ ! -d "/ritey" ]; then
-sudo mkdir "/ritey"
-sudo chmod 775 "/ritey"
-fi
-
-cat <<EOF > /ritey/ritey2.sh
+cat <<EOF > /srv/www/ritey/ritey2.sh
 #!/bin/bash
 
 allLogFiles () {
@@ -60,7 +55,7 @@ allLogFiles () {
 allLogFiles
 
 EOF
-cat <<EOF > /ritey/ritey.service
+cat <<EOF > /srv/www/ritey/ritey.service
 [Unit]
 Description=Test Daemon Service
 
@@ -69,7 +64,7 @@ User=root
 Type=simple
 TimeoutSec=0
 PIDFile=/run/ritey.pid
-ExecStart=/bin/bash /ritey/ritey2.sh > /dev/null 2>/dev/null
+ExecStart=/bin/bash /srv/www/ritey/ritey2.sh > /dev/null 2>/dev/null
 ExecStop=/bin/kill -HUP \$MAINPID
 ExecReload=/bin/kill -HUP \$MAINPID
 KillMode=process
@@ -84,7 +79,7 @@ WantedBy=default.target
 EOF
 
 sudo rm /etc/systemd/system/ritey.service
-sudo ln -s /ritey/ritey.service /etc/systemd/system/ritey.service
+sudo ln -s /srv/www/ritey/ritey.service /etc/systemd/system/ritey.service
 #sudo systemctl start ritey
 sudo systemctl daemon-reload
 sudo systemctl start ritey
